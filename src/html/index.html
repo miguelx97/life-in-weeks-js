@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mi Página TypeScript</title>
+    <script src="../js/dist/bundle.js" defer></script>
+    <link rel="stylesheet" href="../styles/dist/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="text-center">
+            <h1>Life in Weeks</h1>
+        </div>
+        <div class="row">
+            <div class="form-group col">
+              <label for="birthdate">Birth Date</label>
+              <input type="date" class="form-control" id="birthdate">
+            </div>
+            <div class="form-group col">
+                <label for="gender">Gender</label>
+                <select class="form-control" id="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>              
+                </select>
+            </div>
+            <div class="form-group col">
+                <label for="countries">Country</label>
+                <select id="countries" class="form-control" placeholder="This is a placeholder">
+                    <!-- <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option> -->
+                </select>
+            </div>
+        </div>
+      </div>
+</body>
+</html>
