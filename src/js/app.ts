@@ -1,5 +1,5 @@
 import { configDropdowns } from './dropdowns';
-import { getCountries } from './countries.service';
+import { getCountries } from './services/countries.service';
 
 configDropdowns();
 getCountries();

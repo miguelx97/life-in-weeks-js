@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "tsc && browserify ./src/js/dist/app.js -o ./src/js/dist/bundle.js && node-sass ./src/css/styles.scss -o ./src/css/dist/"
+    "build": "tsc && browserify ./dist/js/app.js -o ./dist/js/bundle/app.js && node-sass ./src/css/styles.scss -o ./dist/css/"
   },
   "keywords": [],
   "author": "",
