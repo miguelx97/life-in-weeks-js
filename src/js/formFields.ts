@@ -4,7 +4,8 @@ import { processLifeInWeeks } from "./processLifeInWeeks";
 
 const user: User = new User();
 
-export function formFields() {
+export function formFields(_user: User) {
+    user.copy(_user);
 
     const genderField = document.getElementById('gender') as HTMLSelectElement;
     const countryField = document.getElementById('country') as HTMLSelectElement;

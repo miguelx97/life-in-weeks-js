@@ -4,6 +4,7 @@ import { getLifeExpectancyByCountry } from "./services/lifeExpectancy.service";
 import { Persistence } from "./services/persistence.service";
 
 export async function processLifeInWeeks(user:User) {
+    console.log('Processing life in weeks...', user);    
     if(!user || !user.birthdate || !user.country || !user.gender) return;
     const life:Life = await getLifeInWeeks(user);
     generateWeeksGrid(life);
@@ -21,14 +22,7 @@ async function getLifeInWeeks(user:User) {
 function generateWeeksGrid(life:Life) {
     const grid:HTMLDivElement = document.getElementById('grid') as HTMLDivElement;
 
-    // Function to remove all elements with the "week" class
-    function removeWeekElements() {
-    const weekElements = document.querySelectorAll('.week');
-    weekElements.forEach(element => element.remove());
-    }
-
-    // Remove all elements with the "week" class
-    removeWeekElements();
+    grid.innerHTML = ''; // Clear the grid
     
     for (let i = 0; i < life.totalWeeks!; i++) {
         const square = document.createElement('div');

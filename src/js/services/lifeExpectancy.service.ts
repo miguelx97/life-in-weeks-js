@@ -28,7 +28,7 @@ export async function getLifeExpectancyByCountry(user:User):Promise<number> {
     const country:CountryLifeExpectancy = await getCountryDetails(user.country);
     switch (user.gender) {
         case Gender.Male: return country.males;
-        case Gender.Female: return country.males;
+        case Gender.Female: return country.females;
         default: return country.bothsexes;
     }
 }

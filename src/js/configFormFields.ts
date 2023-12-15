@@ -42,7 +42,6 @@ async function countriesDropdown(defaultValue?: string) {
 
     const dropdown = new Choices('#country', {
         placeholder: true,
-        placeholderValue: 'Select a country',
         searchEnabled: true,
         shouldSort: false,
         classNames,
@@ -55,7 +54,7 @@ async function countriesDropdown(defaultValue?: string) {
 function setDropdownDefaultValue(choices:Item[], dropdown:Choices, defaultValue?: string){
     if(!defaultValue) return;
     const item:Item = choices.find(item => item.value === defaultValue)!;
-    dropdown.setValue([item!]);
+    dropdown.setChoiceByValue(item.value);
 }
 
 const classNames = {

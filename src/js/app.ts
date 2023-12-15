@@ -10,7 +10,7 @@ Translate.init('','../../i18n/').then(() => {
     const user:User = new User()
     user.copy(Persistence.load('user'));
     confiFields(user);
-    formFields();
+    formFields(user);
     processLifeInWeeks(user);
 })
 
