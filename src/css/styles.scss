@@ -12,3 +12,22 @@
         margin-bottom: 0.4rem;
     }
 }
+
+#grid {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(52, 1fr);
+    grid-template-rows: repeat(100, 1fr);
+    gap: 1px; /* Optional gap between squares */
+    
+    .week {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        background-color: #ccc; /* Adjust the background color as needed */
+        border: 1px solid #fff; /* Optional border for better visibility */
+
+        &.week-lived {
+            background-color: #1f1f1f;
+        }
+    }
+}

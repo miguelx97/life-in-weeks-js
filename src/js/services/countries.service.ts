@@ -13,9 +13,5 @@ export async function getCountries():Promise<CountryIsoCode> {
             break;
     }
     const countries:CountryIsoCode = await fetch(url).then(response => response.json());
-    // const items:DropdownItem[] = Object.entries(countries).map(([code, name]) => {
-    //     return { value: code, label: name };
-    // });
-    // console.log(items);
     return countries;
 }

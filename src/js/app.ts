@@ -1,8 +1,16 @@
-import { configDropdowns } from './dropdowns';
-import { getCountries } from './services/countries.service';
+import { confiFields } from './configFormFields';
+import { formFields } from './formFields';
+import { User } from './models/user';
+import { processLifeInWeeks } from './processLifeInWeeks';
+import { Persistence } from './services/persistence.service';
 import Translate from './utils/translate';
 
 Translate.init('','../../i18n/').then(() => {
     Translate.template();
-    configDropdowns();
+    const user:User = new User()
+    user.copy(Persistence.load('user'));
+    confiFields(user);
+    formFields();
+    processLifeInWeeks(user);
 })
+
