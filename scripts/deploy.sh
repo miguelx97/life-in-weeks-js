@@ -11,7 +11,7 @@ sed -i 's|./dist||g' "$file_path"
 mkdir -p ./dist/i18n/ && cp -r ./i18n/* ./dist/i18n/
 
 file_path="./dist/js/app.js"
-sed -i 's|\.\./\.\./i18n/|\./i18n/|g' "$file_path"
+sed -i 's|\.\./\.\./i18n/|\.\./i18n/|g' "$file_path"
 
 git commit -am "Deploy"
 git push origin main
