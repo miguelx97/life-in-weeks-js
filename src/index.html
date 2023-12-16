@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Life in Weeks</title>
+    <script src="../dist/js/bundle/app.js" defer></script>
+    <link rel="stylesheet" href="../dist/css/styles.css">
+</head>
+<body>
+    <div class="container mt-4 noResultsYet" id="mainContainer">
+
+        <div class="row">
+
+            <!-- TITLE -->
+            <div class="text-center">
+                <h1 translate="title"></h1>
+            </div>
+            
+            <div class="col-12 col-sm-4 col-lg-12">
+                <!-- FORM -->
+                <form class="row mainForm mb-3">
+                    <div class="col col-sm-12 col-lg form-group mt-3">
+                      <label for="birthdate" translate="birthday"></label>
+                      <input type="date" class="form-control" id="birthdate">
+                    </div>
+                    <div class="col col-sm-12 col-lg form-group mt-3">
+                        <label for="gender" translate="gender"></label>
+                        <select class="form-control" id="gender">            
+                        </select>
+                    </div>
+                    <div class="col col-sm-12 col-lg form-group mt-3">
+                        <label for="country" translate="country"></label>
+                        <select id="country" class="form-control">
+                        </select>
+                    </div>
+                    <div type="button" class="text-dark mt-3 col-2 col-sm-4 col-lg-1 showOnResults" id="cleanBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+                            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+                          </svg>
+                    </div>
+                </form>
+
+                <!-- MESSAGE -->
+                <div class="row showOnResults">
+                    <div class="col col-sm-12 col-lg-6 text-end text-sm-start text-lg-end"><span translate="lived"></span>: <span id="lived"></span>%</div>
+                    <div class="col col-sm-12 col-lg"><span translate="toLive"></span>: <span id="toLive"></span>%</div>
+                </div>
+            </div>
+
+
+
+            <!-- RESULT -->
+            <div id="grid" class="mt-2 col-12 col-sm-8 col-lg-12 showOnResults"></div>
+        </div>
+    </div>
+</body>
+</html>
