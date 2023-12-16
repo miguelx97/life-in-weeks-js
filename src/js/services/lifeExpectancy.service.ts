@@ -2,7 +2,7 @@ import { CountryLifeExpectancy } from "../models/countryLifeExpectancy";
 import { Gender } from "../models/gender.enum";
 import { User } from "../models/user";
 
-async function getCountriesLifeExpectancy():Promise<CountryLifeExpectancy[]> {
+export async function getCountriesLifeExpectancy():Promise<CountryLifeExpectancy[]> {
     const url = 'https://raw.githubusercontent.com/miguelx97/World-Data-API/main/life_expectancy_2023.json';
     const countries:CountryLifeExpectancy[] = await fetch(url).then(response => response.json());
     return countries;

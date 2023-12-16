@@ -1,18 +1,24 @@
 import { User } from "./user";
 
 export class Life {
+    lifeExpectancyYears?:number;
     totalWeeks?:number;
     weeksLived?:number;
-    weeksLeft?:number;
     percentageLived?:number;
-    percentageLeft?:number;
+
+    get weeksLeft() {
+        return this.calculateWeeksLeft(this.lifeExpectancyYears!, this.weeksLived!);
+    }
+
+    get percentageLeft() {
+        return 100 - this.percentageLived!;
+    }
 
     build(user:User, lifeExpectancyYears:number){
+        this.lifeExpectancyYears = lifeExpectancyYears;
         this.totalWeeks = lifeExpectancyYears * 52;
         this.weeksLived = this.calculateWeeksLived(user);
-        this.weeksLeft = this.calculateWeeksLeft(lifeExpectancyYears, this.weeksLived);
         this.percentageLived = this.calculatePercentageLived();
-        this.percentageLeft = 100 - this.percentageLived;
     }
 
     calculateWeeksLived(user:User):number {

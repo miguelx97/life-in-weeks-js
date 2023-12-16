@@ -8,6 +8,7 @@ const choices_js_1 = __importDefault(require("choices.js"));
 const gender_enum_1 = require("./gender.enum");
 const translate_1 = __importDefault(require("../utils/translate"));
 const countries_service_1 = require("../services/countries.service");
+const lifeExpectancy_service_1 = require("../services/lifeExpectancy.service");
 class Ui {
     static birthdayInput;
     static dropdownGender;
@@ -55,6 +56,10 @@ class Ui {
         choices = Object.entries(countries).map(([code, name]) => {
             return { value: code, label: name };
         });
+        // filter by the ones that are in the life expectancy data
+        const lifeExpectancyCountries = await (0, lifeExpectancy_service_1.getCountriesLifeExpectancy)();
+        const lifeExpectancyCountriesCodes = lifeExpectancyCountries.map(country => country.country);
+        choices = choices.filter(choice => lifeExpectancyCountriesCodes.includes(choice.value));
         this.dropdownCountry.setChoices(choices);
         this.setDropdownDefaultValue(choices, this.dropdownCountry, defaultValue);
     }

@@ -3,6 +3,8 @@ import { Gender } from "./gender.enum";
 import Translate from "../utils/translate";
 import { getCountries } from "../services/countries.service";
 import { User } from "./user";
+import { getCountriesLifeExpectancy, getLifeExpectancyByCountry } from "../services/lifeExpectancy.service";
+import { CountryLifeExpectancy } from "./countryLifeExpectancy";
 
 export class Ui {
     static birthdayInput: HTMLInputElement;
@@ -62,6 +64,11 @@ export class Ui {
         choices = Object.entries(countries).map(([code, name]) => {
             return { value: code, label: name };
         });
+        
+        // filter by the ones that are in the life expectancy data
+        const lifeExpectancyCountries:CountryLifeExpectancy[] = await getCountriesLifeExpectancy();
+        const lifeExpectancyCountriesCodes:string[] = lifeExpectancyCountries.map(country => country.country);
+        choices = choices.filter(choice => lifeExpectancyCountriesCodes.includes(choice.value));
 
         this.dropdownCountry.setChoices(choices);
         

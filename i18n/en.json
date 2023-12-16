@@ -11,5 +11,12 @@
     , "clean": "Clean"
     , "lived": "Lived"
     , "toLive": "For living"
+    , "lifeExpCountryMessage": "The life expectancy of "
+    , "aMan": "a man "
+    , "aWoman": "a woman "
+    , "aPerson": "a person "
+    , "in": "in "
+    , "is": "is "
+    , "years": "years."
     , "": ""
 }
