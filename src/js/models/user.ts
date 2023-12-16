@@ -15,4 +15,10 @@ export class User {
         const inputId = (event.target as HTMLInputElement).id;
         if (inputId in this) (this as any)[inputId] = value;
     }
+
+    clean() {
+        this.birthdate = undefined;
+        this.gender = undefined;
+        this.country = undefined;
+    }
 }

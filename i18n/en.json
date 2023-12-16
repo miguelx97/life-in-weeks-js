@@ -8,5 +8,8 @@
     , "male": "Maculine"
     , "female": "Feminine"
     , "other": "Other"
+    , "clean": "Clean"
+    , "lived": "Lived"
+    , "toLive": "For living"
     , "": ""
 }

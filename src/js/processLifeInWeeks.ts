@@ -1,4 +1,5 @@
 import { Life } from "./models/life";
+import { Ui } from "./models/uiElements";
 import { User } from "./models/user";
 import { getLifeExpectancyByCountry } from "./services/lifeExpectancy.service";
 import { Persistence } from "./services/persistence.service";
@@ -8,6 +9,7 @@ export async function processLifeInWeeks(user:User) {
     if(!user || !user.birthdate || !user.country || !user.gender) return;
     const life:Life = await getLifeInWeeks(user);
     generateWeeksGrid(life);
+    showLifePercentages(life);
     Persistence.save('user', user);
 }
 
@@ -22,7 +24,7 @@ async function getLifeInWeeks(user:User) {
 function generateWeeksGrid(life:Life) {
     const grid:HTMLDivElement = document.getElementById('grid') as HTMLDivElement;
 
-    grid.innerHTML = ''; // Clear the grid
+    cleanGrid();
     
     for (let i = 0; i < life.totalWeeks!; i++) {
         const square = document.createElement('div');
@@ -32,4 +34,20 @@ function generateWeeksGrid(life:Life) {
         }
         grid.appendChild(square);
     }
+
+    Ui.mainContainer.classList.remove('noResultsYet');
+}
+
+export function cleanGrid() {
+    const grid:HTMLDivElement = document.getElementById('grid') as HTMLDivElement;
+    grid.innerHTML = '';
+
+    Ui.mainContainer.classList.add('noResultsYet');
+}
+
+function showLifePercentages(life:Life) {
+    const livedSpan:HTMLSpanElement = document.getElementById('lived') as HTMLSpanElement;
+    const toLiveSpan:HTMLSpanElement = document.getElementById('toLive') as HTMLSpanElement;
+    livedSpan.innerText = life.percentageLived+'';
+    toLiveSpan.innerText = life.percentageLeft+'';
 }

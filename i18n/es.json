@@ -8,5 +8,8 @@
     , "male": "Maculino"
     , "female": "Femenino"
     , "other": "Otro"
+    , "clean": "Limpiar"
+    , "lived": "Vivido"
+    , "toLive": "Por vivir"
     , "": ""
 }

@@ -11,4 +11,8 @@ export class Persistence {
         const json = localStorage.getItem(key);
         return JSON.parse(json!);
     }
+
+    static remove(key: string) {
+        localStorage.removeItem(key);
+    }
 }

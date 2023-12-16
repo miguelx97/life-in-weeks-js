@@ -4,11 +4,15 @@ export class Life {
     totalWeeks?:number;
     weeksLived?:number;
     weeksLeft?:number;
+    percentageLived?:number;
+    percentageLeft?:number;
 
     build(user:User, lifeExpectancyYears:number){
         this.totalWeeks = lifeExpectancyYears * 52;
         this.weeksLived = this.calculateWeeksLived(user);
         this.weeksLeft = this.calculateWeeksLeft(lifeExpectancyYears, this.weeksLived);
+        this.percentageLived = this.calculatePercentageLived();
+        this.percentageLeft = 100 - this.percentageLived;
     }
 
     calculateWeeksLived(user:User):number {
@@ -24,5 +28,9 @@ export class Life {
 
     calculateWeeksLeft(lifeExpectancy:number, weeksLived:number):number {
         return Math.floor(lifeExpectancy * 52 - weeksLived);
+    }
+
+    calculatePercentageLived():number {
+        return Math.floor(this.weeksLived! * 100 / this.totalWeeks!);
     }
 }
