@@ -1,0 +1,15 @@
+{
+    "title": "Mi Vida en Semanas"
+    , "birthday": "Cumpleaños"
+    , "gender": "Género"
+    , "selectGender": "Selecciona tu género"
+    , "country": "País"
+    , "selectCountry": "Selecciona tu país"
+    , "male": "Maculino"
+    , "female": "Femenino"
+    , "other": "Otro"
+    , "clean": "Limpiar"
+    , "lived": "Vivido"
+    , "toLive": "Por vivir"
+    , "": ""
+}

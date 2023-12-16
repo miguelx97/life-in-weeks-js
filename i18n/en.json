@@ -1,0 +1,15 @@
+{
+    "title": "Life in Weeks"
+    , "birthday": "Birthday"
+    , "gender": "Gender"
+    , "selectGender": "Select your gender"
+    , "country": "Country"
+    , "selectCountry": "Select your country"
+    , "male": "Maculine"
+    , "female": "Feminine"
+    , "other": "Other"
+    , "clean": "Clean"
+    , "lived": "Lived"
+    , "toLive": "For living"
+    , "": ""
+}
