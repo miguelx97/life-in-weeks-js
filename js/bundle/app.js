@@ -10,7 +10,7 @@ const user_1 = require("./models/user");
 const processLifeInWeeks_1 = require("./processLifeInWeeks");
 const persistence_service_1 = require("./services/persistence.service");
 const translate_1 = __importDefault(require("./utils/translate"));
-translate_1.default.init('', '../../i18n/').then(() => {
+translate_1.default.init('', '../i18n/').then(() => {
     translate_1.default.template();
     const user = new user_1.User();
     user.copy(persistence_service_1.Persistence.load('user'));
