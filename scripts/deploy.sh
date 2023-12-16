@@ -10,7 +10,7 @@ sed -i 's|./dist||g' "$file_path"
 # Copy the i18n folder from root to the dist folder
 mkdir -p ./dist/i18n/ && cp -r ./i18n/* ./dist/i18n/
 
-file_path="./dist/js/app.js"
+file_path="./dist/js/bundle/app.js"
 sed -i 's|\.\./\.\./i18n/|\.\./i18n/|g' "$file_path"
 
 git commit -am "Deploy"
