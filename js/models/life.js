@@ -2,17 +2,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Life = void 0;
 class Life {
+    lifeExpectancyYears;
     totalWeeks;
     weeksLived;
-    weeksLeft;
     percentageLived;
-    percentageLeft;
+    get weeksLeft() {
+        return this.calculateWeeksLeft(this.lifeExpectancyYears, this.weeksLived);
+    }
+    get percentageLeft() {
+        return 100 - this.percentageLived;
+    }
     build(user, lifeExpectancyYears) {
+        this.lifeExpectancyYears = lifeExpectancyYears;
         this.totalWeeks = lifeExpectancyYears * 52;
         this.weeksLived = this.calculateWeeksLived(user);
-        this.weeksLeft = this.calculateWeeksLeft(lifeExpectancyYears, this.weeksLived);
         this.percentageLived = this.calculatePercentageLived();
-        this.percentageLeft = 100 - this.percentageLived;
     }
     calculateWeeksLived(user) {
         if (!user.birthdate) {

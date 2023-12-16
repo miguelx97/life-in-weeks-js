@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLifeExpectancyByCountry = void 0;
+exports.getLifeExpectancyByCountry = exports.getCountriesLifeExpectancy = void 0;
 const gender_enum_1 = require("../models/gender.enum");
 async function getCountriesLifeExpectancy() {
     const url = 'https://raw.githubusercontent.com/miguelx97/World-Data-API/main/life_expectancy_2023.json';
     const countries = await fetch(url).then(response => response.json());
     return countries;
 }
+exports.getCountriesLifeExpectancy = getCountriesLifeExpectancy;
 async function getCountryDetails(countryIso) {
     const countries = await getCountriesLifeExpectancy();
     const country = countries.find(c => c.country === countryIso);

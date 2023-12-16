@@ -10,7 +10,7 @@ const user_1 = require("./models/user");
 const processLifeInWeeks_1 = require("./processLifeInWeeks");
 const persistence_service_1 = require("./services/persistence.service");
 const translate_1 = __importDefault(require("./utils/translate"));
-translate_1.default.init('', './i18n/').then(() => {
+translate_1.default.init('', '../../i18n/').then(() => {
     translate_1.default.template();
     const user = new user_1.User();
     user.copy(persistence_service_1.Persistence.load('user'));
@@ -78,17 +78,21 @@ var Language;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Life = void 0;
 class Life {
+    lifeExpectancyYears;
     totalWeeks;
     weeksLived;
-    weeksLeft;
     percentageLived;
-    percentageLeft;
+    get weeksLeft() {
+        return this.calculateWeeksLeft(this.lifeExpectancyYears, this.weeksLived);
+    }
+    get percentageLeft() {
+        return 100 - this.percentageLived;
+    }
     build(user, lifeExpectancyYears) {
+        this.lifeExpectancyYears = lifeExpectancyYears;
         this.totalWeeks = lifeExpectancyYears * 52;
         this.weeksLived = this.calculateWeeksLived(user);
-        this.weeksLeft = this.calculateWeeksLeft(lifeExpectancyYears, this.weeksLived);
         this.percentageLived = this.calculatePercentageLived();
-        this.percentageLeft = 100 - this.percentageLived;
     }
     calculateWeeksLived(user) {
         if (!user.birthdate) {
@@ -120,6 +124,7 @@ const choices_js_1 = __importDefault(require("choices.js"));
 const gender_enum_1 = require("./gender.enum");
 const translate_1 = __importDefault(require("../utils/translate"));
 const countries_service_1 = require("../services/countries.service");
+const lifeExpectancy_service_1 = require("../services/lifeExpectancy.service");
 class Ui {
     static birthdayInput;
     static dropdownGender;
@@ -167,6 +172,10 @@ class Ui {
         choices = Object.entries(countries).map(([code, name]) => {
             return { value: code, label: name };
         });
+        // filter by the ones that are in the life expectancy data
+        const lifeExpectancyCountries = await (0, lifeExpectancy_service_1.getCountriesLifeExpectancy)();
+        const lifeExpectancyCountriesCodes = lifeExpectancyCountries.map(country => country.country);
+        choices = choices.filter(choice => lifeExpectancyCountriesCodes.includes(choice.value));
         this.dropdownCountry.setChoices(choices);
         this.setDropdownDefaultValue(choices, this.dropdownCountry, defaultValue);
     }
@@ -215,7 +224,7 @@ class Ui {
 }
 exports.Ui = Ui;
 
-},{"../services/countries.service":9,"../utils/translate":12,"./gender.enum":3,"choices.js":14}],7:[function(require,module,exports){
+},{"../services/countries.service":9,"../services/lifeExpectancy.service":10,"../utils/translate":12,"./gender.enum":3,"choices.js":14}],7:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
@@ -246,12 +255,18 @@ exports.User = User;
 
 },{}],8:[function(require,module,exports){
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cleanGrid = exports.processLifeInWeeks = void 0;
+const gender_enum_1 = require("./models/gender.enum");
 const life_1 = require("./models/life");
 const uiElements_1 = require("./models/uiElements");
+const countries_service_1 = require("./services/countries.service");
 const lifeExpectancy_service_1 = require("./services/lifeExpectancy.service");
 const persistence_service_1 = require("./services/persistence.service");
+const translate_1 = __importDefault(require("./utils/translate"));
 async function processLifeInWeeks(user) {
     console.log('Processing life in weeks...', user);
     if (!user || !user.birthdate || !user.country || !user.gender)
@@ -259,6 +274,7 @@ async function processLifeInWeeks(user) {
     const life = await getLifeInWeeks(user);
     generateWeeksGrid(life);
     showLifePercentages(life);
+    showCountryLifeExpectancy(life, user);
     persistence_service_1.Persistence.save('user', user);
 }
 exports.processLifeInWeeks = processLifeInWeeks;
@@ -294,8 +310,28 @@ function showLifePercentages(life) {
     livedSpan.innerText = life.percentageLived + '';
     toLiveSpan.innerText = life.percentageLeft + '';
 }
+async function showCountryLifeExpectancy(life, user) {
+    const countryLifeExpectancy = document.getElementById('countryLifeExpectancy');
+    let message = translate_1.default.word('lifeExpCountryMessage');
+    switch (user.gender) {
+        case gender_enum_1.Gender.Male:
+            message += translate_1.default.word('aMan');
+            break;
+        case gender_enum_1.Gender.Female:
+            message += translate_1.default.word('aWoman');
+            break;
+        default:
+            message += translate_1.default.word('aPerson');
+            break;
+    }
+    const countries = await (0, countries_service_1.getCountries)();
+    const country = (Object.entries(countries).find(([key, value]) => key === user.country))[1];
+    message += translate_1.default.word('in') + country + ' ' + translate_1.default.word('is');
+    message += Math.trunc(life.lifeExpectancyYears) + translate_1.default.word('years');
+    countryLifeExpectancy.innerText = message;
+}
 
-},{"./models/life":5,"./models/uiElements":6,"./services/lifeExpectancy.service":10,"./services/persistence.service":11}],9:[function(require,module,exports){
+},{"./models/gender.enum":3,"./models/life":5,"./models/uiElements":6,"./services/countries.service":9,"./services/lifeExpectancy.service":10,"./services/persistence.service":11,"./utils/translate":12}],9:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCountries = void 0;
@@ -320,13 +356,14 @@ exports.getCountries = getCountries;
 },{"../models/language":4,"../utils/utils":13}],10:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLifeExpectancyByCountry = void 0;
+exports.getLifeExpectancyByCountry = exports.getCountriesLifeExpectancy = void 0;
 const gender_enum_1 = require("../models/gender.enum");
 async function getCountriesLifeExpectancy() {
     const url = 'https://raw.githubusercontent.com/miguelx97/World-Data-API/main/life_expectancy_2023.json';
     const countries = await fetch(url).then(response => response.json());
     return countries;
 }
+exports.getCountriesLifeExpectancy = getCountriesLifeExpectancy;
 async function getCountryDetails(countryIso) {
     const countries = await getCountriesLifeExpectancy();
     const country = countries.find(c => c.country === countryIso);
