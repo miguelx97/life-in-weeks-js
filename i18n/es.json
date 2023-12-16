@@ -11,5 +11,12 @@
     , "clean": "Limpiar"
     , "lived": "Vivido"
     , "toLive": "Por vivir"
+    , "lifeExpCountryMessage": "La esperanza de vida de "
+    , "aMan": "un hombre "
+    , "aWoman": "una mujer "
+    , "aPerson": "una persona "
+    , "in": "en "
+    , "is": "es de "
+    , "years": "años."
     , "": ""
 }
